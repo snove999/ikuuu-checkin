@@ -31,8 +31,9 @@ https://github.com/snove999/ikuuu-checkin
 
 1. 打开项目运行 **`index.tsx`**（或直接运行 `login.tsx`）→ 点「登录 / 续期 Cookie」→ 在登录页输入账密、完成极验验证码、点登录 → 页面显示"Cookie 已保存，有效期至 …"即完成
    - 可选免输入：在任意脚本里执行 `Storage.set("ikuuu_email","你的邮箱")` 和 `Storage.set("ikuuu_password","你的密码")`（仅存本机），之后登录页自动填表
-2. iOS 快捷指令 → 自动化 → **特定时间**（如每天 09:00）→ 添加动作 **Scripting → Run Script**（后台执行无 UI）→ 选择本项目的 **`checkin`** → 关闭「运行前询问」
-3. 完成。每天自动签到并通知结果；Cookie 过期时签到通知会提醒你重新跑一次登录续期
+2. **快捷指令自动化**：iOS 快捷指令 → 自动化 → **特定时间**（如每天 09:00）→ 添加动作 **Scripting → Run Script**（后台执行无 UI）→ 选择本项目的 **`ikuuu-checkin`**（入口为 `intent.tsx`，无界面签到，结果经通知 + 快捷指令返回值双通道输出）→ 关闭「运行前询问」
+3. **桌面小组件**（可选）：桌面长按 → 添加 Scripting 小组件 → 长按编辑选择本项目 `ikuuu-checkin`，显示 Cookie 有效期与最近一次签到状态
+4. 完成。每天自动签到并通知结果；Cookie 过期时签到通知会提醒你重新跑一次登录续期
 
 ## 排障：点了没反应？
 
@@ -46,12 +47,13 @@ https://github.com/snove999/ikuuu-checkin
 
 | 文件 | 说明 |
 |---|---|
-| `index.tsx` | 主入口：菜单（立即签到 / 登录续期），自包含 |
-| `checkin.tsx` | 签到入口（快捷指令 Run Script 用，无 UI），自包含 |
-| `login.tsx` | 登录续期入口（无 UI，跑完退出），自包含 |
-| `script.json` | Scripting 项目清单（`runInApp: true`；导入后 app 自动补 `remoteResource`） |
-
-三个入口文件均不互相 import，单独复制任何一个到别的项目也能用。
+| `index.tsx` | 主入口：菜单（立即签到 / 登录续期 + 状态显示） |
+| `intent.tsx` | 快捷指令「Run Script」/ 分享面板入口（无 UI 签到） |
+| `checkin.tsx` | 签到入口（无 UI，手动或后台运行均可） |
+| `login.tsx` | 登录续期入口（无 UI，跑完退出） |
+| `widget.tsx` | 桌面小组件：Cookie 有效期 + 最近签到状态 |
+| `lib.ts` | 共享逻辑（签到、WebView 登录、状态读取），各入口 import 它 |
+| `script.json` | 项目清单（`entry`/`runInApp: true`/`intentInputTypes: ["text"]`） |
 
 ## 隐私
 
