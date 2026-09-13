@@ -45,7 +45,7 @@ async function checkin(): Promise<{ ok: boolean; message: string }> {
 }
 
 async function main() {
-  console.log("checkin starting, env =", Script.env)
+  console.log("checkin starting, env=" + Script.env)
   try {
     const r = await checkin()
     await Notification.schedule({
