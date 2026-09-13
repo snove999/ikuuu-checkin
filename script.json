@@ -1,0 +1,16 @@
+{
+  "name": "ikuuu-checkin",
+  "description": "ikuuu.top 每日签到：WebView 登录自动抓取 Cookie（约 7 天续期一次）+ 每日自动签到通知",
+  "icon": "checkmark.seal",
+  "color": "#5856D6",
+  "author": {
+    "name": "snove999",
+    "homepage": "https://github.com/snove999"
+  },
+  "version": "1.0.0",
+  "runInApp": false,
+  "intentInputTypes": [],
+  "contributors": [],
+  "localizedNames": {},
+  "localizedDescriptions": {}
+}
